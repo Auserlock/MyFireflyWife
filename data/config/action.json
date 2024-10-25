@@ -1,0 +1,34 @@
+{
+    "eat": {
+        "path": "data/assets/firefly/actions/eat",
+        "type": ".png"
+    },
+    "standby": {
+        "path": "data/assets/firefly/actions/standby",
+        "type": ".png"
+    },
+    "mention": {
+        "path": "data/assets/firefly/actions/mention",
+        "type": ".png"
+    },
+    "sleep": {
+        "path": "data/assets/firefly/actions/sleep",
+        "type": ".png"
+    },
+    "love": {
+        "path": "data/assets/firefly/actions/love",
+        "type": ".png"
+    },
+    "discomfort": {
+        "path": "data/assets/firefly/actions/discomfort",
+        "type": ".png"
+    },
+    "left": {
+        "path": "data/assets/firefly/actions/left",
+        "type": ".png"
+    },
+    "right": {
+        "path": "data/assets/firefly/actions/right",
+        "type": ".png"
+    }
+}
