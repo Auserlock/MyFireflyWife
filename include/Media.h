@@ -1,9 +1,8 @@
 //
 // Created by arch_ on 24-10-24.
 //
+#pragma once
 
-#ifndef PLAYER_H
-#define PLAYER_H
 #include <string>
 #include <SFML/Audio.hpp>
 #include <future>
@@ -40,4 +39,3 @@ public:
 private:
     AudioPlayer* player;
 };
-#endif // PLAYER_H

@@ -3,13 +3,15 @@
 //
 #include "Media.h"
 #include <stdexcept>
+#include "Log.h"
 #include <thread>
 #include <chrono>
 
 AudioPlayer::AudioPlayer(const string& filePath)
 {
     if (!buffer.loadFromFile(filePath)) {
-        throw std::runtime_error("Error loading audio file: " + filePath);
+        logger->error("加载音频文件失败: " + filePath);
+        throw std::runtime_error("加载音频文件失败: " + filePath);
     }
     sound.setBuffer(buffer);
 }
@@ -50,11 +52,8 @@ void AudioPlayerQThread::run()
     try {
         const auto duration = player->play().get();
         emit finish(duration);
-    } catch (const std::exception& e) {
-        qDebug() << "AudioPlayer encountered an error:" << e.what();
-        emit finish(0);
     } catch (...) {
-        qDebug() << "AudioPlayer encountered an unknown error.";
+        logger->error("音频播放器遭遇未知错误.");
         emit finish(0);
     }
 }
