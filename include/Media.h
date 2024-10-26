@@ -21,21 +21,3 @@ private:
     sf::SoundBuffer buffer;
     sf::Sound sound;
 };
-
-class AudioPlayerQThread final : public QThread {
-    Q_OBJECT
-
-signals:
-    void finish(int sec);
-
-public:
-    void run() override;
-    explicit AudioPlayerQThread(const string& filePath)
-        : player { new AudioPlayer { filePath } }
-    {
-    }
-    ~AudioPlayerQThread() override { delete player; }
-
-private:
-    AudioPlayer* player;
-};

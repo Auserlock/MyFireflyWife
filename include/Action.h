@@ -62,6 +62,7 @@ public:
     void discomfortEvent() { load("discomfort"); }
     void left() { load("left"); }
     void right() { load("right"); }
+    void setRequestInterruption(bool para) { request_interruption = para; }
 
 private slots:
     void onTimerTimeout();

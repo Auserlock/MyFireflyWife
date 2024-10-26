@@ -52,6 +52,7 @@ MainWindow::~MainWindow()
     delete main_config;
     delete firefly_property;
     delete action_timer;
+    delete voice_thread;
     delete action_event_QThread;
 }
 
@@ -70,6 +71,14 @@ void MainWindow::change_background(const QString& filePath)
 
 void MainWindow::startTimer()
 {
+    try {
+        if (play_voice_on_start) {
+            playFireflyVoice("VoiceOnStart");
+        }
+    } catch (std::exception& e) {
+        logger->error(e.what());
+    }
+
     if (!action_timer) {
         action_timer = new QTimer(this);
         Q_ASSERT(connect(action_timer, &QTimer::timeout, action_event_QThread, &Action::ActionEvent::playNextImage));
@@ -141,4 +150,36 @@ void MainWindow::mouseReleaseEvent(QMouseEvent* event)
     }
 
     QMainWindow::mouseReleaseEvent(event);
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    this->hide();
+    if (play_voice_on_close) {
+        playFireflyVoice("VoiceOnClose");
+    }
+
+    try {
+        stopTimer();
+        if (action_event_QThread) {
+            action_event_QThread->setRequestInterruption(true);
+            action_event_QThread->exit();
+            action_event_QThread->wait();
+        }
+    } catch (std::exception& e) {
+        logger->error(e.what());
+        QMainWindow::closeEvent(event);
+    }
+    QMainWindow::closeEvent(event);
+}
+
+void MainWindow::playFireflyVoice(const string& key)
+{
+
+    delete voice_thread;
+    voice_thread = new FireflyVoiceQThread(key);
+
+    logger->info("播放音频: " + key);
+    // Q_ASSERT(connect());
+    voice_thread->start();
 }

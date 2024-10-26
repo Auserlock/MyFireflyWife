@@ -8,6 +8,7 @@
 #include "RoleProperty.h"
 #include "Action.h"
 #include "FireflyWindowConfig.h"
+#include "FireflyVoice.h"
 #include <QLabel>
 
 enum class WalkingDirection {
@@ -33,6 +34,7 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void closeEvent(QCloseEvent* event) override;
 
 private:
     QApplication* app;
@@ -46,6 +48,9 @@ private:
     QLabel label;
     QPoint drag_pos {};
     QTimer* action_timer = nullptr;
+    FireflyVoiceQThread* voice_thread = nullptr;
 
     Action::ActionEvent* action_event_QThread {};
+
+    void playFireflyVoice(const string& key);
 };

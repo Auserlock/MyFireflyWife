@@ -46,14 +46,3 @@ std::future<int> AudioPlayer::play()
 
     return future;
 }
-
-void AudioPlayerQThread::run()
-{
-    try {
-        const auto duration = player->play().get();
-        emit finish(duration);
-    } catch (...) {
-        logger->error("音频播放器遭遇未知错误.");
-        emit finish(0);
-    }
-}

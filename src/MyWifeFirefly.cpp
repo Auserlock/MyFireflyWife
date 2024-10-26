@@ -5,6 +5,8 @@
 #include <iostream>
 #include <QApplication>
 #include "FireflyWindow.h"
+#include "FireflyVoice.h"
+#include <random>
 using std::cerr;
 using std::endl;
 int main(int argc, char* argv[])
@@ -13,7 +15,6 @@ int main(int argc, char* argv[])
         cerr << "Failed to initialize logger!" << endl;
         exit(1);
     }
-
     QApplication app { argc, argv };
     MainWindow window { &app };
     window.show();
